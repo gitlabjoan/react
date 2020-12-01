@@ -1,14 +1,14 @@
-// API IP https://ipstack.com/signup/free
+// API PAISES http://restcountries.eu/#api-endpoints-full-name
 const url = 'https://restcountries.eu/rest/v2/all'
 
-const getIP = async (countryCode) => {
+const getCountry = async (countryCode) => {
     const result = await axios.get(url);
     const countries = result.data;
     const country = countries.find((country) =>{return country.alpha2Code === countryCode.toUpperCase()})
     render(country.name);
 }
 
-const ip = getIP('es');
+const country = getCountry('es');
 
 const appRoot = document.getElementById('appRoot')
 const render = (country) => {

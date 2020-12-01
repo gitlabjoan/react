@@ -1,72 +1,55 @@
 'use strict';
 
-var personaA = {
-    name: 'Joan',
-    edad: '26',
-    city: 'Reus'
-};
-var personaB = {
-    name: 'John',
-    edad: '22',
-    city: 'Budapest'
-};
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-var reset = function reset() {
-    personaA.edad;
-    render();
-};
+// API IP https://ipstack.com/signup/free
+var url = 'https://restcountries.eu/rest/v2/all';
 
-var sumar = function sumar() {
-    personaA.edad++;
+var getIP = function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(countryCode) {
+        var result, countries, country;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+            while (1) {
+                switch (_context.prev = _context.next) {
+                    case 0:
+                        _context.next = 2;
+                        return axios.get(url);
 
-    render();
-};
+                    case 2:
+                        result = _context.sent;
+                        countries = result.data;
+                        country = countries.find(function (country) {
+                            return country.alpha2Code === countryCode.toUpperCase();
+                        });
 
-var restar = function restar() {
-    personaA.edad--;
-    render();
-};
+                        render(country.name);
+
+                    case 6:
+                    case 'end':
+                        return _context.stop();
+                }
+            }
+        }, _callee, undefined);
+    }));
+
+    return function getIP(_x) {
+        return _ref.apply(this, arguments);
+    };
+}();
+
+var ip = getIP('es');
 
 var appRoot = document.getElementById('appRoot');
-var render = function render() {
+var render = function render(country) {
     var template = React.createElement(
         'div',
         null,
         React.createElement(
             'h1',
             null,
-            ' ',
-            personaA.name,
+            'Pa\xEDs: ',
+            country,
             ' '
-        ),
-        React.createElement(
-            'h1',
-            null,
-            ' ',
-            personaA.edad,
-            ' '
-        ),
-        React.createElement(
-            'h3',
-            null,
-            ' ',
-            personaA.city,
-            ' '
-        ),
-        React.createElement(
-            'button',
-            { onClick: sumar },
-            '+1 '
-        ),
-        React.createElement(
-            'button',
-            { onClick: restar },
-            '-1 '
-        ),
-        React.createElement(
-            'button',
-            { onClick: reset },
-            'reset '
         )
     );
     ReactDOM.render(template, appRoot);
