@@ -1,14 +1,22 @@
-// API IP https://ipstack.com/signup/free
-const url = 'https://restcountries.eu/rest/v2/all'
+// API IP https://ipinfo.io/developers
+const url = 'https://ipinfo.io/?token=9506ea54608e87'
 
-const getIP = async (countryCode) => {
-    const result = await axios.get(url);
-    const countries = result.data;
-    const country = countries.find((country) =>{return country.alpha2Code === countryCode.toUpperCase()})
-    render(country.name);
-}
+const getCountryByIP = async () => {
+    const result1 = await axios.get(url);
+    const countryCode = result1.data.country;
+   
+  // consultar todos los paises a restcountries
+  const result2 = await axios.get('https://restcountries.eu/rest/v2/all');
+  const countries = result2.data;
+  
+  // Buscar el pais que tenga nuestro countryCode en todos los paises
+   const country = countries.find((country) => {
+      return country.alpha2Code== countryCode;
+  })
+  render(country.name);
+} 
 
-const ip = getIP('es');
+getCountryByIP();
 
 const appRoot = document.getElementById('appRoot')
 const render = (country) => {
