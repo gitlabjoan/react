@@ -1,96 +1,112 @@
 'use strict';
 
-// HELLO REACT
+var appRoot = document.getElementById('appRoot');
 
-/* HELLO REACT */
-var personaA = {
-    name: 'Joan',
-    edad: '26',
-    city: 'Reus'
-};
-var personaB = {
-    name: 'John',
-    edad: '22',
-    city: 'Budapest'
-};
-var edad = personaA.edad;
-var reset = function reset() {
-    personaA.edad = edad;
-    render();
-};
+var books = [{ _id: 'addasd', titulo: 'El principito', autor: 'joan' }, { _id: 'amdasd', titulo: 'Las nuves que buelan', autor: 'ioan' }, { _id: 'abdasd', titulo: 'El fin que nunca llegó', autor: 'iohan' }];
 
-var sumar = function sumar() {
-    personaA.edad++;
+var onSubmitNewBook = function onSubmitNewBook(e) {
+    e.preventDefault();
 
-    render();
-};
+    var newTitle = e.target.elements.titulo.value;
+    var newAutor = e.target.elements.autor.value;
 
-var restar = function restar() {
-    personaA.edad--;
-    render();
-};
+    /*  if (newTitle) {
+         books.push({ titulo: newTitle, autor: 'Anónimo' })
+         e.target.elements.titulo.value = ''; //e.target.reset()
+         render();
+     } */
 
-var writeLocation = function writeLocation(city) {
-    if (city) {
-        {
-            return React.createElement(
-                'p',
-                null,
-                '  Ciudad: ',
-                city
-            );
-        }
+    if (newTitle) {
+        books.push({ titulo: newTitle, autor: newAutor || 'JOHN DOE' });
+        e.target.elements.titulo.value = ''; //e.target.reset()
+        render();
+    } else {
+        console.log('Te falta indtorducir el autor o el titulo');
     }
 };
 
-var appRoot = document.getElementById('appRoot');
 var render = function render() {
-    
+
     var template = React.createElement(
         'div',
         null,
         React.createElement(
             'h1',
             null,
-            ' ',
-            personaA.name ? personaA.name : 'Anónimo',
+            'Consegero de libros'
+        ),
+        React.createElement(
+            'h2',
+            null,
+            'Top libros 2020 seg\xFAn la revista BLA BLA'
+        ),
+        React.createElement(
+            'p',
+            null,
+            'Numero de libros: ',
+            books.length,
             ' '
         ),
         React.createElement(
-            'h1',
+            'ul',
             null,
+            books.map(function (book) {
+                return React.createElement(
+                    'li',
+                    { key: book._id },
+                    book.titulo
+                );
+            })
+        ),
+        React.createElement(
+            'form',
+            { onSubmit: onSubmitNewBook },
+            React.createElement(
+                'label',
+                null,
+                'Nuevo t\xEDtulo '
+            ),
+            React.createElement('input', { type: 'text', name: 'titulo', placeholder: 'Escribir un t\xEDtulo' }),
             ' ',
-            personaA.edad,
-            ' '
-        ),
-        writeLocation(personaA.city) && React.createElement(
-            'p',
-            null,
-            'Edad: ',
-            personaA.edad
-        ),
-        personaA.edad && personaA.edad >= 8 && React.createElement(
-            'p',
-            null,
-            'Edad: ',
-            personaA.edad
-        ),
-        React.createElement(
-            'button',
-            { onClick: sumar },
-            '+1 '
-        ),
-        React.createElement(
-            'button',
-            { onClick: restar },
-            '-1 '
-        ),
-        React.createElement(
-            'button',
-            { onClick: reset },
-            'reset '
+            React.createElement('br', null),
+            React.createElement(
+                'label',
+                null,
+                'Autor '
+            ),
+            React.createElement('input', { type: 'text', name: 'autor', placeholder: 'Escribir un autor' }),
+            ' ',
+            React.createElement('br', null),
+            React.createElement(
+                'button',
+                { type: 'submit' },
+                'A\xF1adir t\xEDtulo'
+            )
         )
     );
+
     ReactDOM.render(template, appRoot);
 };
 render();
+
+{/*  const render = () => {
+       const template = (
+           <div>
+               <h1 className='titulo'> LIBROS </h1>
+               <h2>Títulos</h2>
+                   {
+                       books.map((book) => { return <p key= {book._id}> {book.titulo} </p> })
+                   }
+    
+               <h2>Autores</h2>
+               <ul>
+                   {
+                       books.map((book) => {return <li key={book._id}> {book.autor} </li> })
+                   }
+               </ul>
+    
+           </div>
+       )
+       ReactDOM.render(template, appRoot)
+    }
+    render()  */}

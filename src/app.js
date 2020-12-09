@@ -1,57 +1,119 @@
-// HELLO REACT
+const appRoot = document.getElementById('appRoot')
 
-/* HELLO REACT */
-const personaA = {
-    name: 'Joan',
-    edad: '26',
-    city: 'Reus'
-}
-const personaB = {
-    name: 'John',
-    edad: '22',
-    city: 'Budapest'
-}
-const edad = personaA.edad;
-const reset = () => {
-    personaA.edad = edad;
-    render();
-}
+const books = [
+    { _id: 'addasd', titulo: 'El principito', autor: 'joan' },
+    { _id: 'amdasd', titulo: 'Las nuves que buelan', autor: 'ioan' },
+    { _id: 'abdasd', titulo: 'El fin que nunca llegó', autor: 'iohan' },
+]
 
-const sumar = () => {
-    personaA.edad++;
+const onSubmitNewBook = (e) => {
+    e.preventDefault()
 
-    render();
-}
+    const newTitle = e.target.elements.titulo.value;
+    const newAutor = e.target.elements.autor.value;
 
-const restar = () => {
-    personaA.edad--;
-    render();
-}
+   /*  if (newTitle) {
+        books.push({ titulo: newTitle, autor: 'Anónimo' })
+        e.target.elements.titulo.value = ''; //e.target.reset()
+        render();
+    } */
 
-const writeLocation = (city) => {
-    if (city) {
-        {
-            return <p>  Ciudad: {city}</p>
-        }
-
+      if (newTitle) {
+        books.push({ titulo: newTitle, autor: newAutor || 'JOHN DOE' })
+        e.target.elements.titulo.value = ''; //e.target.reset()
+        render();
+    } else{
+        console.log('Te falta indtorducir el autor o el titulo');
     }
 }
 
 
-const appRoot = document.getElementById('appRoot')
-const render = () => {y
+const render = () => {
+
     const template = (
         <div>
-            <h1> {personaA.name ? personaA.name : 'Anónimo'} </h1>
-            <h1> {personaA.edad} </h1>
-            { writeLocation(personaA.city) && <p>Edad: {personaA.edad}</p>}
-            {(personaA.edad && personaA.edad >= 8) && <p>Edad: {personaA.edad}</p>}
-            
-            <button onClick={sumar}>+1 </button>
-            <button onClick={restar}>-1 </button>
-            <button onClick={reset}>reset </button>
+            <h1>Consegero de libros</h1>
+            <h2>Top libros 2020 según la revista BLA BLA</h2>
+            {
+                <p>Numero de libros: {books.length} </p>
+            }
+            <ul>
+                {
+                    books.map((book) => {
+                        return <li key={book._id}>{book.titulo}</li>
+                    })
+                }
+            </ul>
+
+            <form onSubmit={onSubmitNewBook} >
+                <label >Nuevo título </label>
+                <input type="text" name="titulo" placeholder="Escribir un título" /> <br />
+                <label >Autor </label>
+                <input type="text" name="autor" placeholder="Escribir un autor" /> <br />
+                <button type="submit" >Añadir título</button>
+            </form>
+
+
+
+        </div>)
+
+    ReactDOM.render(template, appRoot)
+}
+render()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/*  const render = () => {
+    const template = (
+        <div>
+            <h1 className='titulo'> LIBROS </h1>
+            <h2>Títulos</h2>
+                {
+                    books.map((book) => { return <p key= {book._id}> {book.titulo} </p> })
+                }
+
+            <h2>Autores</h2>
+            <ul>
+                {
+                    books.map((book) => {return <li key={book._id}> {book.autor} </li> })
+                }
+            </ul>
+
         </div>
     )
     ReactDOM.render(template, appRoot)
 }
-render()
+render()  */}
