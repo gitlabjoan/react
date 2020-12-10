@@ -44,7 +44,7 @@ var render = function render() {
             'p',
             null,
             'Numero de libros: ',
-            books.length,
+            books.length > 0 ? 'Hay  ' + books.length + ' libros ' : 'No hay libros todavía',
             ' '
         ),
         React.createElement(

@@ -35,7 +35,7 @@ const render = () => {
             <h1>Consegero de libros</h1>
             <h2>Top libros 2020 según la revista BLA BLA</h2>
             {
-                <p>Numero de libros: {books.length} </p>
+                <p>Numero de libros: { books.length > 0 ? `Hay  ${books.length} libros ` : 'No hay libros todavía' } </p> 
             }
             <ul>
                 {
