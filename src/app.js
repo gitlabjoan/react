@@ -1,119 +1,83 @@
-const appRoot = document.getElementById('appRoot')
 
-const books = [
-    { _id: 'addasd', titulo: 'El principito', autor: 'joan' },
-    { _id: 'amdasd', titulo: 'Las nuves que buelan', autor: 'ioan' },
-    { _id: 'abdasd', titulo: 'El fin que nunca llegó', autor: 'iohan' },
-]
 
-const onSubmitNewBook = (e) => {
-    e.preventDefault()
+class Header extends React.Component {
+    render() {
+        return <h1>{this.props.tituloDeMiApp}</h1> // indicamos un titulo de forma dinámica
+        // return <h1>Consejero literario digital</h1>
+    }
+}
 
-    const newTitle = e.target.elements.titulo.value;
-    const newAutor = e.target.elements.autor.value;
+class Description extends React.Component {
+    render() {
+        return <p> | Recomendaciones peprsonalizadas al detalle</p>
+    }
+}
+ 
+class ChooseBook extends React.Component {
+    render() {
+        return <button>Recomendar Libros</button>
+    }
+}
 
-   /*  if (newTitle) {
-        books.push({ titulo: newTitle, autor: 'Anónimo' })
-        e.target.elements.titulo.value = ''; //e.target.reset()
-        render();
-    } */
+class EliminarBook extends React.Component{
+    render (){
+        
+        return <button>{this.props.deleteButton}</button>
+    }
+}
 
-      if (newTitle) {
-        books.push({ titulo: newTitle, autor: newAutor || 'JOHN DOE' })
-        e.target.elements.titulo.value = ''; //e.target.reset()
-        render();
-    } else{
-        console.log('Te falta indtorducir el autor o el titulo');
+class Books extends React.Component {
+    render() {
+        return <h2>Lista libros</h2>
     }
 }
 
 
-const render = () => {
+class Formulario extends React.Component {
+    render() {
 
-    const template = (
-        <div>
-            <h1>Consegero de libros</h1>
-            <h2>Top libros 2020 según la revista BLA BLA</h2>
-            {
-                <p>Numero de libros: { books.length > 0 ? `Hay  ${books.length} libros ` : 'No hay libros todavía' } </p> 
-            }
-            <ul>
-                {
-                    books.map((book) => {
-                        return <li key={book._id}>{book.titulo}</li>
-                    })
-                }
-            </ul>
+        return <form  >
+            <label htmlFor="title">Book </label>
+            <input type="text" name="title" /> <br />
+            <br />
+            <label htmlFor="title">Author </label>
+            <input type="text" name="author" /> <br />
+        </form>
 
-            <form onSubmit={onSubmitNewBook} >
-                <label >Nuevo título </label>
-                <input type="text" name="titulo" placeholder="Escribir un título" /> <br />
-                <label >Autor </label>
-                <input type="text" name="autor" placeholder="Escribir un autor" /> <br />
-                <button type="submit" >Añadir título</button>
-            </form>
-
-
-
-        </div>)
-
-    ReactDOM.render(template, appRoot)
+    }
 }
-render()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/*  const render = () => {
-    const template = (
-        <div>
-            <h1 className='titulo'> LIBROS </h1>
-            <h2>Títulos</h2>
-                {
-                    books.map((book) => { return <p key= {book._id}> {book.titulo} </p> })
-                }
-
-            <h2>Autores</h2>
-            <ul>
-                {
-                    books.map((book) => {return <li key={book._id}> {book.autor} </li> })
-                }
-            </ul>
+class ConsejeroApp extends React.Component {
+    render() {
+        return <div>
+            <Header tituloDeMiApp = "Libros digitales"/>
+            <Description />
+            <ChooseBook />
+            <EliminarBook deleteButton="Eliniar la lista de libros"/>
+            <Books />
+            <hr />
+            <Formulario />
 
         </div>
-    )
-    ReactDOM.render(template, appRoot)
+    }
 }
-render()  */}
+
+
+const template = (
+
+    <div>
+        <Header />
+        <Description />
+        <ChooseBook />
+        <Books />
+        <hr />
+        <Formulario />
+
+    </div>
+
+)
+// ReactDOM.render(template,<ConsejeroApp/>, document.querySelector('#appRoot'))
+ReactDOM.render(<ConsejeroApp />, document.querySelector('#appRoot'))
+
+// bind
+// props

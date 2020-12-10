@@ -1,112 +1,84 @@
 'use strict';
 
-var appRoot = document.getElementById('appRoot');
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var books = [{ _id: 'addasd', titulo: 'El principito', autor: 'joan' }, { _id: 'amdasd', titulo: 'Las nuves que buelan', autor: 'ioan' }, { _id: 'abdasd', titulo: 'El fin que nunca llegó', autor: 'iohan' }];
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var onSubmitNewBook = function onSubmitNewBook(e) {
-    e.preventDefault();
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-    var newTitle = e.target.elements.titulo.value;
-    var newAutor = e.target.elements.autor.value;
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-    /*  if (newTitle) {
-         books.push({ titulo: newTitle, autor: 'Anónimo' })
-         e.target.elements.titulo.value = ''; //e.target.reset()
-         render();
-     } */
+var CounterApp = function (_React$Component) {
+    _inherits(CounterApp, _React$Component);
 
-    if (newTitle) {
-        books.push({ titulo: newTitle, autor: newAutor || 'JOHN DOE' });
-        e.target.elements.titulo.value = ''; //e.target.reset()
-        render();
-    } else {
-        console.log('Te falta indtorducir el autor o el titulo');
+    function CounterApp(props) {
+        _classCallCheck(this, CounterApp);
+
+        var _this = _possibleConstructorReturn(this, (CounterApp.__proto__ || Object.getPrototypeOf(CounterApp)).call(this, props));
+
+        _this.incrementar = _this.incrementar.bind(_this);
+        _this.decrementar = _this.incrementar.bind(_this);
+        _this.resetear = _this.incrementar.bind(_this);
+
+        _this.state = {
+            count: 0
+        };
+        return _this;
     }
-};
 
-var render = function render() {
+    _createClass(CounterApp, [{
+        key: 'incrementar',
+        value: function incrementar() {
+            this.setState;
+            this.count = this.count + 1;
+        }
+    }, {
+        key: 'decrementar',
+        value: function decrementar() {
+            this.count = this.count - 1;
+        }
+    }, {
+        key: 'resetear',
+        value: function resetear() {
+            this.count = this.count + 0;
+        }
+    }, {
+        key: 'render',
+        value: function render() {
 
-    var template = React.createElement(
-        'div',
-        null,
-        React.createElement(
-            'h1',
-            null,
-            'Consegero de libros'
-        ),
-        React.createElement(
-            'h2',
-            null,
-            'Top libros 2020 seg\xFAn la revista BLA BLA'
-        ),
-        React.createElement(
-            'p',
-            null,
-            'Numero de libros: ',
-            books.length > 0 ? 'Hay  ' + books.length + ' libros ' : 'No hay libros todavía',
-            ' '
-        ),
-        React.createElement(
-            'ul',
-            null,
-            books.map(function (book) {
-                return React.createElement(
-                    'li',
-                    { key: book._id },
-                    book.titulo
-                );
-            })
-        ),
-        React.createElement(
-            'form',
-            { onSubmit: onSubmitNewBook },
-            React.createElement(
-                'label',
+            return React.createElement(
+                'div',
                 null,
-                'Nuevo t\xEDtulo '
-            ),
-            React.createElement('input', { type: 'text', name: 'titulo', placeholder: 'Escribir un t\xEDtulo' }),
-            ' ',
-            React.createElement('br', null),
-            React.createElement(
-                'label',
-                null,
-                'Autor '
-            ),
-            React.createElement('input', { type: 'text', name: 'autor', placeholder: 'Escribir un autor' }),
-            ' ',
-            React.createElement('br', null),
-            React.createElement(
-                'button',
-                { type: 'submit' },
-                'A\xF1adir t\xEDtulo'
-            )
-        )
-    );
+                React.createElement(
+                    'h1',
+                    null,
+                    'Contador'
+                ),
+                React.createElement(
+                    'p',
+                    null,
+                    this.state.count
+                ),
+                React.createElement(
+                    'button',
+                    { onClick: this.incrementar },
+                    '+'
+                ),
+                React.createElement(
+                    'button',
+                    { onClick: this.decrementar },
+                    '-'
+                ),
+                React.createElement(
+                    'button',
+                    { onClick: this.resetear },
+                    'reset'
+                )
+            );
+        }
+    }]);
 
-    ReactDOM.render(template, appRoot);
-};
-render();
+    return CounterApp;
+}(React.Component);
 
-{/*  const render = () => {
-       const template = (
-           <div>
-               <h1 className='titulo'> LIBROS </h1>
-               <h2>Títulos</h2>
-                   {
-                       books.map((book) => { return <p key= {book._id}> {book.titulo} </p> })
-                   }
-    
-               <h2>Autores</h2>
-               <ul>
-                   {
-                       books.map((book) => {return <li key={book._id}> {book.autor} </li> })
-                   }
-               </ul>
-    
-           </div>
-       )
-       ReactDOM.render(template, appRoot)
-    }
-    render()  */}
+ReactDOM.render(React.createElement(CounterApp, null), document.querySelector('#appRoot'));

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "live-server public",
-    "dev": "babel src/app.js --out-file=public/js/index.js --presets=react,env --watch"
+    "dev": "babel src/app-contador.js --out-file=public/js/index.js --presets=react,env --watch"
   },
   "author": "",
   "license": "ISC",
